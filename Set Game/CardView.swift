@@ -8,10 +8,7 @@
 import SwiftUI
 
 struct CardView: View {
-    let number: Int
-    let color: Color
-    let shading: ShadingType
-    let shapeType: ShapeType
+    let card: SetGameCard
     
     var body: some View {
         ZStack {
@@ -20,6 +17,10 @@ struct CardView: View {
         }
         .aspectRatio(Constants.ASPECT_RATIO, contentMode: .fit)
         .padding()
+    }
+    
+    init(_ card: SetGameCard) {
+        self.card = card
     }
     
     private var container: some View {
@@ -32,21 +33,21 @@ struct CardView: View {
     }
     
     private var cardShapes: some View {
-            VStack {
-                ForEach(1..<number + 1, id: \.self) {_ in 
-                    Spacer()
-                    cardShape
-                    Spacer()
-                }
+        VStack {
+            ForEach(1..<card.shapeNum + 1, id: \.self) {_ in
+                Spacer()
+                cardShape
+                Spacer()
             }
-            .frame(
-                  minWidth: 0,
-                  maxWidth: .infinity,
-                  minHeight: 0,
-                  maxHeight: .infinity,
-                  alignment: .center
-                )
-            .padding()
+        }
+        .frame(
+                minWidth: 0,
+                maxWidth: .infinity,
+                minHeight: 0,
+                maxHeight: .infinity,
+                alignment: .center
+            )
+        .padding()
         
     }
     
@@ -56,7 +57,7 @@ struct CardView: View {
     }
     
     private func getShapeFromType() -> some Shape {
-        switch shapeType {
+        switch card.shapeType {
         case .diamond:
             AnyShape(Diamond())
         case .rectangle:
@@ -67,21 +68,21 @@ struct CardView: View {
     }
     
     private func applyShadingType(_ shape: some Shape) -> some View {
-        switch shading {
+        switch card.shadingType {
         case .transparent:
             return AnyView(shape
-                .stroke(color, lineWidth: Constants.CardShape.BORDER_SIZE)
+                .stroke(card.color, lineWidth: Constants.CardShape.BORDER_SIZE)
                 .fill(.white)
                 .aspectRatio(Constants.CardShape.ASPECT_RATIO, contentMode: .fit)
             )
         case .solid:
             return AnyView(shape
-                .foregroundStyle(color)
+                .foregroundStyle(card.color)
                 .aspectRatio(Constants.CardShape.ASPECT_RATIO, contentMode: .fit)
             )
         case .semiTransparent:
             return AnyView(shape
-                .foregroundStyle(color)
+                .foregroundStyle(card.color)
                 .opacity(Constants.CardShape.OPACITY)
                 .aspectRatio(Constants.CardShape.ASPECT_RATIO, contentMode: .fit)
             )
@@ -101,25 +102,17 @@ struct CardView: View {
             }
         }
         struct CardShape {
-            static let OPACITY = 0.5
+            static let OPACITY = 0.2
             static let BORDER_SIZE: CGFloat = 4
             static let ASPECT_RATIO: CGFloat = 2
             static let CORNER_RADIUS = 50.0
         }
     }
-    
-    enum ShadingType {
-        case transparent, semiTransparent, solid
-    }
-    
-    enum ShapeType {
-        case diamond, rectangle, oval
-    }
 }
 
 #Preview {
-    CardView(number: 2,
-             color: .green,
-             shading: CardView.ShadingType.semiTransparent,
-             shapeType: CardView.ShapeType.diamond)
+    CardView(Card(shapeNum: 6,
+                  color: .green,
+                  shadingType: SetGame.ShadingType.semiTransparent,
+                  shapeType: SetGame.ShapeType.oval))
 }

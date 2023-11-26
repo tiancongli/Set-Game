@@ -13,6 +13,10 @@
 		27BBAD592B08A6AC006E7F33 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 27BBAD582B08A6AC006E7F33 /* Preview Assets.xcassets */; };
 		27BBAD602B08A702006E7F33 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27BBAD5F2B08A702006E7F33 /* CardView.swift */; };
 		27BBAD622B0A0655006E7F33 /* Diamond.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27BBAD612B0A0655006E7F33 /* Diamond.swift */; };
+		27BBAD642B0DB80E006E7F33 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27BBAD632B0DB80E006E7F33 /* Card.swift */; };
+		27BBAD662B0DBB87006E7F33 /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27BBAD652B0DBB87006E7F33 /* GameView.swift */; };
+		27BBAD682B0DBE61006E7F33 /* GameCards.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27BBAD672B0DBE61006E7F33 /* GameCards.swift */; };
+		27BBAD6A2B0DBF2B006E7F33 /* SetGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27BBAD692B0DBF2B006E7F33 /* SetGame.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,6 +27,10 @@
 		27BBAD582B08A6AC006E7F33 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		27BBAD5F2B08A702006E7F33 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		27BBAD612B0A0655006E7F33 /* Diamond.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Diamond.swift; sourceTree = "<group>"; };
+		27BBAD632B0DB80E006E7F33 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
+		27BBAD652B0DBB87006E7F33 /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
+		27BBAD672B0DBE61006E7F33 /* GameCards.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameCards.swift; sourceTree = "<group>"; };
+		27BBAD692B0DBF2B006E7F33 /* SetGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetGame.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,7 +65,11 @@
 			children = (
 				27BBAD512B08A6AA006E7F33 /* Set_GameApp.swift */,
 				27BBAD532B08A6AA006E7F33 /* ContentView.swift */,
+				27BBAD632B0DB80E006E7F33 /* Card.swift */,
+				27BBAD672B0DBE61006E7F33 /* GameCards.swift */,
+				27BBAD692B0DBF2B006E7F33 /* SetGame.swift */,
 				27BBAD5F2B08A702006E7F33 /* CardView.swift */,
+				27BBAD652B0DBB87006E7F33 /* GameView.swift */,
 				27BBAD612B0A0655006E7F33 /* Diamond.swift */,
 				27BBAD552B08A6AC006E7F33 /* Assets.xcassets */,
 				27BBAD572B08A6AC006E7F33 /* Preview Content */,
@@ -147,6 +159,10 @@
 				27BBAD602B08A702006E7F33 /* CardView.swift in Sources */,
 				27BBAD522B08A6AA006E7F33 /* Set_GameApp.swift in Sources */,
 				27BBAD622B0A0655006E7F33 /* Diamond.swift in Sources */,
+				27BBAD682B0DBE61006E7F33 /* GameCards.swift in Sources */,
+				27BBAD662B0DBB87006E7F33 /* GameView.swift in Sources */,
+				27BBAD6A2B0DBF2B006E7F33 /* SetGame.swift in Sources */,
+				27BBAD642B0DB80E006E7F33 /* Card.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
