@@ -27,7 +27,12 @@ struct GameView: View {
         ScrollView {
             LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible())], spacing: 20) {
                 ForEach(viewModel.tableCards) { card in
-                    CardView(card)
+                    let color = viewModel.getCardColor(card)
+                    let bgColor = viewModel.getCardBgColor(card)
+                    CardView(card, color: color, bgColor: bgColor)
+                        .onTapGesture {
+                            viewModel.choose(card)
+                        }
                 }
             }
         }

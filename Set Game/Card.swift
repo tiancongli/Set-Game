@@ -8,7 +8,11 @@
 import Foundation
 import SwiftUI
 
-struct Card<ShadingType, ShapeType> : Identifiable {
+struct Card<ShadingType, ShapeType> : Identifiable, Equatable {
+    static func == (lhs: Card<ShadingType, ShapeType>, rhs: Card<ShadingType, ShapeType>) -> Bool {
+        lhs.id == rhs.id
+    }
+    
     var id: String
     
     let shapeNum: Int

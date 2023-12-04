@@ -9,6 +9,8 @@ import SwiftUI
 
 struct CardView: View {
     let card: SetGameCard
+    let color: Color?
+    let bgColor: Color?
     
     var body: some View {
         ZStack {
@@ -17,16 +19,20 @@ struct CardView: View {
         }
         .aspectRatio(Constants.ASPECT_RATIO, contentMode: .fit)
         .padding()
+        .background(bgColor)
     }
     
-    init(_ card: SetGameCard) {
+    init(_ card: SetGameCard, color: Color? = .white, bgColor: Color? = .white) {
         self.card = card
+        self.color = color
+        self.bgColor = bgColor
     }
     
+    @ViewBuilder
     private var container: some View {
         RoundedRectangle(cornerRadius: Constants.CORNER_RADIUS)
-            .fill(.white.opacity(Constants.Container.OPACITY))
-            .shadow(color: .gray, 
+            .fill(color!.opacity(Constants.Container.OPACITY))
+            .shadow(color: .gray,
                     radius: Constants.Container.Shadow.RADIUS, 
                     x: Constants.Container.Shadow.X,
                     y: Constants.Container.Shadow.Y)
