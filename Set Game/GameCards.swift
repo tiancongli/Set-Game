@@ -13,11 +13,13 @@ struct GameCards<ShadingType, ShapeType> {
     private(set) var deckCards: [GameCard]
     private(set) var tableCards: [GameCard]
     private(set) var selectedCards: [GameCard]
+    private(set) var discardedCards: [GameCard]
     
     init(_ deckCards: [GameCard]) {
         self.deckCards = deckCards
         self.tableCards = []
         self.selectedCards = []
+        self.discardedCards = []
     }
     
     mutating func choose(_ card: GameCard) {
@@ -52,17 +54,23 @@ struct GameCards<ShadingType, ShapeType> {
     mutating func replaceCard(_ card: GameCard) {
         if let cardIndex = tableCards.firstIndex(of: card) {
             if deckCards.isEmpty {
-                tableCards.remove(at: cardIndex)
+                discardedCards.append(tableCards.remove(at: cardIndex))
             } else {
+                discardedCards.append(tableCards[cardIndex])
                 tableCards[cardIndex] = deckCards.removeLast()
             }
         }
+    }
+    
+    mutating func shuffle() {
+        tableCards.shuffle()
     }
     
     mutating func endGame() {
         tableCards = []
         deckCards = []
         selectedCards = []
+        discardedCards = []
     }
     
     

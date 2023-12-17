@@ -9,33 +9,36 @@ import SwiftUI
 
 struct CardView: View {
     let card: SetGameCard
-    let color: Color?
-    let bgColor: Color?
+    let color: Color
+    let faceUp: Bool
     
     var body: some View {
         ZStack {
             container
-            cardShapes
+            if faceUp {
+                cardShapes
+            }
         }
         .aspectRatio(Constants.ASPECT_RATIO, contentMode: .fit)
-        .padding()
-        .background(bgColor)
     }
     
-    init(_ card: SetGameCard, color: Color? = .white, bgColor: Color? = .white) {
+    init(_ card: SetGameCard, color: Color = .white, faceUp: Bool = true) {
         self.card = card
         self.color = color
-        self.bgColor = bgColor
+        self.faceUp = faceUp
     }
     
-    @ViewBuilder
     private var container: some View {
-        RoundedRectangle(cornerRadius: Constants.CORNER_RADIUS)
-            .fill(color!.opacity(Constants.Container.OPACITY))
-            .shadow(color: .gray,
-                    radius: Constants.Container.Shadow.RADIUS, 
-                    x: Constants.Container.Shadow.X,
-                    y: Constants.Container.Shadow.Y)
+        ZStack {
+            RoundedRectangle(cornerRadius: Constants.CORNER_RADIUS)
+                .fill((faceUp ? color : .orange).opacity(Constants.Container.OPACITY))
+                .stroke(.blue, lineWidth: 2)
+                .shadow(color: .gray,
+                        radius: Constants.Container.Shadow.RADIUS,
+                        x: Constants.Container.Shadow.X,
+                        y: Constants.Container.Shadow.Y)
+        }
+        
     }
     
     private var cardShapes: some View {
@@ -121,4 +124,5 @@ struct CardView: View {
                   color: .green,
                   shadingType: SetGame.ShadingType.semiTransparent,
                   shapeType: SetGame.ShapeType.oval))
+    .padding()
 }

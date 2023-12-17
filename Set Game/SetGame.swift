@@ -45,23 +45,22 @@ class SetGame: ObservableObject {
     }
     
     func getCardColor(_ card: SetGameCard) -> Color {
-        return selectedCards.contains(card) ? .blue : .white
-    }
-    
-    func getCardBgColor(_ card: SetGameCard) -> Color {
         switch getCardStatus(card) {
-        case .notDecided:
+        case .unselected:
             return .white
+        case .selected:
+            return .blue.opacity(Constants.cardSelectedOpacity)
         case .matched:
-            return .green
+            return .green.opacity(Constants.cardSelectedOpacity)
         case .notMatched:
-            return .red
+            return .red.opacity(Constants.cardSelectedOpacity)
         }
     }
     
     func isSet(_ cards: [SetGameCard]) -> Bool {
         guard cards.count == Constants.cardsInSet else {return false}
-        // FOR TEST ONLY: return true
+//         FOR TEST ONLY: 
+        return true
         let isFeatureSet = { (featureExtractor: (SetGameCard) -> AnyHashable) in
             let featureSet = Set(cards.map(featureExtractor))
             return featureSet.count != Constants.cardsInSet - 1
@@ -72,10 +71,12 @@ class SetGame: ObservableObject {
     }
     
     private func getCardStatus(_ card: SetGameCard) -> CardStatus {
-        // If the card is not selected or if the number of selected cards
-        // doesn't make a complete set yet, the status is 'notDecided'.
-        if !selectedCards.contains(card) || selectedCards.count != Constants.cardsInSet {
-            return .notDecided
+        if !selectedCards.contains(card) {
+            return .unselected
+        }
+        
+        if selectedCards.count != Constants.cardsInSet {
+            return .selected
         }
 
         // If the card is part of a selected set, determine if the cards form a set.
@@ -114,6 +115,10 @@ class SetGame: ObservableObject {
         model.deckCards
     }
     
+    var discardedCards: [SetGameCard] {
+        model.discardedCards
+    }
+    
     func dealCards () {
         model.dealCards(Constants.totalCardsOnTable)
     }
@@ -122,6 +127,10 @@ class SetGame: ObservableObject {
         (0..<Constants.cardsInSet).forEach {_ in
             model.dealCard()
         }
+    }
+    
+    func shuffle() {
+        model.shuffle()
     }
     
     enum ShadingType: CaseIterable {
@@ -133,7 +142,7 @@ class SetGame: ObservableObject {
     }
     
     enum CardStatus {
-        case notDecided, matched, notMatched
+        case unselected, selected, matched, notMatched
     }
     
     struct Constants {
@@ -141,6 +150,7 @@ class SetGame: ObservableObject {
         static let colors: [Color] = [.green, .red, .yellow]
         static let nums = [1, 2, 3]
         static let totalCardsOnTable = 12
+        static let cardSelectedOpacity = 0.8
     }
 }
 

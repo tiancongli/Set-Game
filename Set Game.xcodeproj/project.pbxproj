@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		277BC78F2B2EAEDF0068E143 /* CardsPileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277BC78E2B2EAEDF0068E143 /* CardsPileView.swift */; };
 		27BBAD522B08A6AA006E7F33 /* Set_GameApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27BBAD512B08A6AA006E7F33 /* Set_GameApp.swift */; };
 		27BBAD542B08A6AA006E7F33 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27BBAD532B08A6AA006E7F33 /* ContentView.swift */; };
 		27BBAD562B08A6AC006E7F33 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 27BBAD552B08A6AC006E7F33 /* Assets.xcassets */; };
@@ -20,6 +21,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		277BC78E2B2EAEDF0068E143 /* CardsPileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardsPileView.swift; sourceTree = "<group>"; };
 		27BBAD4E2B08A6AA006E7F33 /* Set Game.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Set Game.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		27BBAD512B08A6AA006E7F33 /* Set_GameApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Set_GameApp.swift; sourceTree = "<group>"; };
 		27BBAD532B08A6AA006E7F33 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -70,6 +72,7 @@
 				27BBAD692B0DBF2B006E7F33 /* SetGame.swift */,
 				27BBAD5F2B08A702006E7F33 /* CardView.swift */,
 				27BBAD652B0DBB87006E7F33 /* GameView.swift */,
+				277BC78E2B2EAEDF0068E143 /* CardsPileView.swift */,
 				27BBAD612B0A0655006E7F33 /* Diamond.swift */,
 				27BBAD552B08A6AC006E7F33 /* Assets.xcassets */,
 				27BBAD572B08A6AC006E7F33 /* Preview Content */,
@@ -162,6 +165,7 @@
 				27BBAD682B0DBE61006E7F33 /* GameCards.swift in Sources */,
 				27BBAD662B0DBB87006E7F33 /* GameView.swift in Sources */,
 				27BBAD6A2B0DBF2B006E7F33 /* SetGame.swift in Sources */,
+				277BC78F2B2EAEDF0068E143 /* CardsPileView.swift in Sources */,
 				27BBAD642B0DB80E006E7F33 /* Card.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
