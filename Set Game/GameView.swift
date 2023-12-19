@@ -18,13 +18,8 @@ struct GameView: View {
     
     var body: some View {
         VStack {
-            HStack {
-                CardsPileView(viewModel.discardedCards, ns: cardsMoving)
-                Spacer()
-                CardsPileView(viewModel.deckCards, ns: cardsMoving)
-            }
-            .frame(height: 100)
-            .padding()
+            piles
+            Spacer()
             cards
             Spacer()
             controller
@@ -32,12 +27,29 @@ struct GameView: View {
         .padding()
     }
     
+    @ViewBuilder
+    var piles: some View {
+        let discardPile = CardsPileView(viewModel.discardedCards, ns: cardsMoving, faceUp: true)
+        let deck = CardsPileView(viewModel.deckCards, ns: cardsMoving)
+        HStack {
+            discardPile
+            Spacer()
+            deck.onTapGesture {
+                withAnimation {
+                    viewModel.deal()
+                }
+            }
+        }
+        .frame(height: 100)
+        .padding()
+    }
+    
     var cards: some View {
         ScrollView {
             LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible())], spacing: Constants.cardsPadding.0) {
                 ForEach(viewModel.tableCards) { card in
-                    let color = viewModel.getCardColor(card)
-                    CardView(card, color: color)
+                    let status = viewModel.getCardStatus(card)
+                    CardView(card, status: status)
                         .onTapGesture {
                             withAnimation {
                                 viewModel.choose(card)

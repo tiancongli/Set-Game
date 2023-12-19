@@ -7,10 +7,33 @@
 
 import SwiftUI
 
-struct CardView: View {
+struct CardView: View, Animatable {
     let card: SetGameCard
-    let color: Color
+    let status: SetGame.CardStatus
     let faceUp: Bool
+    
+    var rotation: Double
+    
+    var offset: Double
+    
+    var animatableData: AnimatablePair<Double, Double> {
+        get {
+           AnimatablePair(rotation, offset)
+        }
+
+        set {
+            rotation = newValue.first
+            offset = newValue.second
+        }
+    }
+    
+    init(_ card: SetGameCard, status: Status = Status.unselected, faceUp: Bool = true) {
+        self.card = card
+        self.status = status
+        self.faceUp = faceUp
+        self.rotation = status == .matched ? 180 : 0
+        self.offset = status == .notMatched ? -1.6 : 0
+    }
     
     var body: some View {
         ZStack {
@@ -20,12 +43,27 @@ struct CardView: View {
             }
         }
         .aspectRatio(Constants.ASPECT_RATIO, contentMode: .fit)
+        .rotationEffect(.degrees(rotation))
+        .offset(x: offset)
+        .animation(status == .notMatched ? shakeAnimation : nil, value: offset)
+        
     }
     
-    init(_ card: SetGameCard, color: Color = .white, faceUp: Bool = true) {
-        self.card = card
-        self.color = color
-        self.faceUp = faceUp
+    private var shakeAnimation: Animation {
+        .default.repeatCount(9, autoreverses: true).speed(15)
+    }
+    
+    private var color: Color {
+        switch status {
+        case .unselected:
+            return .white
+        case .selected:
+            return .blue.opacity(Constants.CARD_SELECTED_OPACITY)
+        case .matched:
+            return .green.opacity(Constants.CARD_SELECTED_OPACITY)
+        case .notMatched:
+            return .red.opacity(Constants.CARD_SELECTED_OPACITY)
+        }
     }
     
     private var container: some View {
@@ -101,6 +139,7 @@ struct CardView: View {
     struct Constants {
         static let CORNER_RADIUS = 25.0
         static let ASPECT_RATIO: CGFloat = 2/3
+        static let CARD_SELECTED_OPACITY = 0.8
 
         struct Container {
             static let OPACITY = 0.9
@@ -118,6 +157,14 @@ struct CardView: View {
         }
     }
 }
+
+extension Animation {
+    static func spin(duration: TimeInterval) -> Animation {
+        .linear(duration: 1).repeatForever(autoreverses: false)
+    }
+}
+
+typealias Status = SetGame.CardStatus
 
 #Preview {
     CardView(Card(shapeNum: 6,

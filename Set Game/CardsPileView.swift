@@ -10,13 +10,16 @@ import SwiftUI
 struct CardsPileView: View {
     let cards: [SetGameCard]
     
+    let faceUp: Bool
+    
     var ns: Namespace.ID
     
     let maxCardsNum = 5
     
-    init(_ cards: [SetGameCard], ns: Namespace.ID) {
+    init(_ cards: [SetGameCard], ns: Namespace.ID, faceUp: Bool = false) {
         self.cards = cards
         self.ns = ns
+        self.faceUp = faceUp
     }
     
     var body: some View {
@@ -25,7 +28,7 @@ struct CardsPileView: View {
             let visualCardsNum = cardsNum > maxCardsNum ? maxCardsNum : cardsNum
             
             ForEach((cardsNum-visualCardsNum)..<cardsNum, id: \.self) { index in
-                CardView(cards[index], faceUp: false)
+                CardView(cards[index], faceUp: faceUp)
                     .zIndex(Double(index))
                     .offset(CGSize(width: (cardsNum - index) * 5, height: 0))
                     .matchedGeometryEffect(id: cards[index].id, in: ns)

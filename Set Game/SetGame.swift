@@ -26,41 +26,52 @@ class SetGame: ObservableObject {
     }
     
     func choose(_ card: SetGameCard) {
-        if selectedCards.count == Constants.cardsInSet {
-            if isSet(selectedCards) {
-                model.replaceCards(selectedCards)
-            }
-            model.emptySelectedCards()
-        }
+        checkIfMatch(matchHandler: discardSelectedCards)
         model.choose(card)
+        
+        // if the chosen card is the last one on the table, then check match set again
+        if model.tableCards.count == Constants.cardsInSet {
+            checkIfMatch(matchHandler: discardSelectedCards)
+        }
         
         if isEndGame() {
             model.endGame()
         }
+    }
+    
+    func deal() {
+        selectedCards.count == Constants.cardsInSet ? checkIfMatch(matchHandler: replaceSelectedCards) : dealMore()
         
+        if isEndGame() {
+            model.endGame()
+        }
+    }
+    
+    func discardSelectedCards() {
+        model.discardCards(selectedCards)
+    }
+    
+    func replaceSelectedCards() {
+        model.replaceCards(selectedCards)
+    }
+    
+    func checkIfMatch(matchHandler: () -> Void) {
+        if selectedCards.count == Constants.cardsInSet {
+            if isSet(selectedCards) {
+                matchHandler()
+            }
+            model.emptySelectedCards()
+        }
     }
     
     func isEndGame() -> Bool {
         return model.deckCards.isEmpty && selectedCards.count == model.tableCards.count
     }
     
-    func getCardColor(_ card: SetGameCard) -> Color {
-        switch getCardStatus(card) {
-        case .unselected:
-            return .white
-        case .selected:
-            return .blue.opacity(Constants.cardSelectedOpacity)
-        case .matched:
-            return .green.opacity(Constants.cardSelectedOpacity)
-        case .notMatched:
-            return .red.opacity(Constants.cardSelectedOpacity)
-        }
-    }
-    
     func isSet(_ cards: [SetGameCard]) -> Bool {
         guard cards.count == Constants.cardsInSet else {return false}
 //         FOR TEST ONLY: 
-        return true
+//        return true
         let isFeatureSet = { (featureExtractor: (SetGameCard) -> AnyHashable) in
             let featureSet = Set(cards.map(featureExtractor))
             return featureSet.count != Constants.cardsInSet - 1
@@ -70,7 +81,7 @@ class SetGame: ObservableObject {
         isFeatureSet { $0.shapeNum } && isFeatureSet { $0.shadingType }
     }
     
-    private func getCardStatus(_ card: SetGameCard) -> CardStatus {
+    func getCardStatus(_ card: SetGameCard) -> CardStatus {
         if !selectedCards.contains(card) {
             return .unselected
         }
@@ -123,7 +134,7 @@ class SetGame: ObservableObject {
         model.dealCards(Constants.totalCardsOnTable)
     }
     
-    func deal3More() {
+    func dealMore() {
         (0..<Constants.cardsInSet).forEach {_ in
             model.dealCard()
         }

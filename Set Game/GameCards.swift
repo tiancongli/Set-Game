@@ -51,14 +51,26 @@ struct GameCards<ShadingType, ShapeType> {
         }
     }
     
+    mutating func discardCards(_ cards: [GameCard]) {
+        for card in cards {
+            discardCard(card)
+        }
+    }
+    
     mutating func replaceCard(_ card: GameCard) {
         if let cardIndex = tableCards.firstIndex(of: card) {
             if deckCards.isEmpty {
-                discardedCards.append(tableCards.remove(at: cardIndex))
+                discardCard(card)
             } else {
                 discardedCards.append(tableCards[cardIndex])
                 tableCards[cardIndex] = deckCards.removeLast()
             }
+        }
+    }
+    
+    mutating func discardCard(_ card: GameCard) {
+        if let cardIndex = tableCards.firstIndex(of: card) {
+            discardedCards.append(tableCards.remove(at: cardIndex))
         }
     }
     
